@@ -1,0 +1,317 @@
+<!--
+  HyperNativo - Landing Page
+  Archivo: hypernativo-landing.html
+  Diseño: Oscuro elegante
+  Tecnologías: HTML, CSS y JavaScript (todo en un solo archivo para GitHub Pages)
+
+  Instrucciones:
+  - Reemplaza las imágenes en /assets (hero.jpg, thumb1.jpg...) por tus propias fotos.
+  - Reemplaza el video hero.mp4 por tu video de portada o deja solo la imagen.
+  - Cambia los enlaces de redes sociales y el correo en el formulario.
+-->
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HyperNativo — Fotografía & Video de Eventos</title>
+  <meta name="description" content="HyperNativo: Fotografía y video profesional para bodas, XV, cumpleaños y eventos. Capturamos momentos únicos.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --card:#0f0f10;
+      --muted:#9b9b9b;
+      --accent:#D4AF37; /* dorado */
+      --glass: rgba(255,255,255,0.03);
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Montserrat,system-ui,Segoe UI,Arial;
+      background:linear-gradient(180deg,#070708 0%, var(--bg) 100%);
+      color:#eee;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:24px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#b3882e);display:flex;align-items:center;justify-content:center;font-weight:700;color:#0b0b0c;font-family:Playfair Display}
+    .brand h1{font-size:18px;margin:0}
+    /* Agregar este CSS para la imagen del logo */
+    .logo-img{
+      width: 230px;
+      height: auto;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:#ddd;text-decoration:none;font-weight:500}
+    .cta{background:var(--accent);color:#0b0b0c;padding:10px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+
+    /* Hero */
+    .hero{position:relative;margin-top:16px;border-radius:14px;overflow:hidden}
+    .hero video, .hero img{width:100%;height:520px;object-fit:cover;display:block}
+    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.6));display:flex;align-items:flex-end;padding:36px}
+    .hero .hero-content{max-width:640px}
+    .hero h2{font-family:Playfair Display,serif;font-size:42px;margin:0 0 8px}
+    .hero p{color:var(--muted);margin:0 0 16px}
+    .hero .actions{display:flex;gap:12px}
+    .btn-outline{border:1px solid rgba(255,255,255,0.12);padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none}
+
+    /* Services */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Portfolio */
+    .portfolio{margin-top:32px}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .gallery img{
+      width:100%;
+      height:250px;
+      object-fit:cover; /* Cambiado de contain a cover */
+      border-radius:8px;
+      cursor:pointer;
+      display:block;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover{
+      transform: scale(1.02);
+    }
+
+    /* Contact */
+    .contact{margin-top:36px;display:grid;grid-template-columns:1fr 380px;gap:20px}
+    .contact form{background:var(--card);padding:18px;border-radius:12px}
+    .field{display:flex;flex-direction:column;margin-bottom:12px}
+    label{font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="email"], textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:#fff}
+    textarea{min-height:120px;resize:vertical}
+    .socials{background:var(--card);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:12px}
+    .socials a{display:inline-flex;gap:10px;align-items:center;text-decoration:none;color:#fff}
+
+    /* Footer */
+    footer{margin:40px 0 18px;color:var(--muted);text-align:center}
+
+    /* Modal gallery */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:120;visibility:hidden;opacity:0;transition:opacity .2s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal img{max-width:90%;max-height:80%;border-radius:8px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .gallery{
+        grid-template-columns:repeat(3,1fr);
+        gap:14px;
+      }
+      .gallery img{
+        height:220px; /* Altura proporcional en tablets */
+      }
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .hero video, .hero img{height:420px}
+      .contact{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      header{padding:6px 0}
+      .brand h1{font-size:16px}
+      .hero h2{font-size:32px}
+      .gallery{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+      }
+      .gallery img{
+        height:200px; /* Altura proporcional en móviles */
+      }
+      .cards{grid-template-columns:1fr}
+      .hero video, .hero img{height:320px}
+    }
+
+    /* small touches */
+    .muted{color:var(--muted)}
+    .accent{color:var(--accent)}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="images/HypernativoLogo.png" alt="HyperNativo Logo" class="logo-img">
+      </div>
+
+      <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#contacto">Contacto</a>
+        <a class="cta" href="#contacto">Solicita cotización</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <!-- Cambiar el video por una imagen -->
+      <img src="/images/manos.jpg" alt="HyperNativo - Fotografía y Video de Eventos">
+      
+      <div class="overlay">
+        <div class="hero-content">
+          <h2>Capturamos momentos que cuentan tu historia</h2>
+          <p class="muted">Cobertura profesional para bodas, XV años, cumpleaños y eventos sociales. Entregas en alta resolución y edición cinematográfica.</p>
+          <div class="actions">
+            <a class="cta" href="#contacto">Solicita cotización</a>
+            <a class="btn-outline" href="#portafolio">Ver portafolio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="servicios">
+      <div class="cards">
+        <div class="card">
+          <h3>Fotografía de eventos</h3>
+          <p>Cobertura completa: ceremonia, sesión de pareja, invitados y detalles. Edición profesional incluida.</p>
+        </div>
+        <div class="card">
+          <h3>Video - Highlights</h3>
+          <p>Videos con edición cinematográfica para revivir tus momentos más importantes en formato corto o largo.</p>
+        </div>
+        <div class="card">
+          <h3>Paquetes personalizados</h3>
+          <p>Paquetes flexibles según horario, número de fotógrafos y necesidades de tu evento.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portafolio" class="portfolio">
+      <h2 style="font-family:Playfair Display;font-size:28px;margin:18px 0">Portafolio</h2>
+      <div class="gallery" id="gallery">
+        <!-- Reemplaza estas miniaturas por tus propias imágenes en /assets -->
+        <img src="images/xv.png" alt="portfolio 1">
+        <img src="images/cafe.png" alt="portfolio 2">
+        <img src="images/novia.png" alt="portfolio 3">
+        <img src="images/modelo.png" alt="portfolio 4">
+        <img src="images/novios.jpg" alt="portfolio 5">
+        <img src="images/cerveza1.png" alt="portfolio 6">
+        <img src="images/novia_vestido.png" alt="portfolio 7">
+        <img src="images/novios2.jpg" alt="portfolio 8">
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contacto" class="contact">
+      <div>
+        <h2 style="font-family:Playfair Display;font-size:24px;margin:0 0 12px">Hablemos de tu evento</h2>
+        <p class="muted">Cuéntanos la fecha y el tipo de evento. Te enviaremos una propuesta personalizada y opciones de paquetes.</p>
+
+        <form id="contactForm">
+          <div class="field">
+            <label for="name">Nombre</label>
+            <input id="name" name="name" type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="correo@ejemplo.com" required>
+          </div>
+          <div class="field">
+            <label for="evento">Tipo de evento</label>
+            <input id="evento" name="evento" type="text" placeholder="Boda, XV, cumpleaños..." required>
+          </div>
+          <div class="field">
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" placeholder="Cuéntanos detalles..." required></textarea>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button type="submit" class="cta">Enviar mensaje</button>
+            <a class="btn-outline" href="mailto:ojedaron@gmail.com?subject=Solicitud%20de%20cotizaci%C3%B3n">Enviar por correo</a>
+          </div>
+        </form>
+      </div>
+
+      <aside class="socials">
+        <div>
+          <strong>Contacto rápido</strong>
+          <div class="muted">WhatsApp: <a href="https://wa.me/526861403401" style="color:var(--accent);text-decoration:none">+52 686-140-34-01</a></div>
+        </div>
+        <div>
+          <div>
+          <strong>Redes</strong>
+          <div style="display:flex;flex-direction:column;margin-top:8px">
+            <a href="https://www.instagram.com/ron.ojeda/" target="_blank">Instagram • @hypernativo</a>
+            <a href="https://www.facebook.com/hypernativo" target="_blank">Facebook • HyperNativo</a>
+            <a href="https://www.tiktok.com/@hypernativo" target="_blank">TikTok • @hypernativo</a>
+          </div>
+        </div>
+        <div>
+          <strong>Dirección</strong>
+          <div class="muted">Mexicali, Baja California — Disponible para viajes</div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      © <span id="year">2025</span> HyperNativo · Todos los derechos reservados
+    </footer>
+  </div>
+
+  <!-- Modal para mostrar imagen grande -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <img id="modalImg" src="" alt="Imagen ampliada">
+  </div>
+
+  <script>
+    // Small JS: gallery modal + form handler + dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Gallery modal
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+
+    gallery && gallery.addEventListener('click', (e) => {
+      const target = e.target;
+      if(target.tagName === 'IMG'){
+        modalImg.src = target.src;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+      }
+    });
+    modal && modal.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      modalImg.src = '';
+    });
+
+    // Simple form handler: abre el mailto con los datos
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const evento = document.getElementById('evento').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      const subject = encodeURIComponent('Solicitud de cotización - ' + evento);
+      const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\nEvento: ${evento}\n\nMensaje:\n${message}`);
+
+      // Cambia por el correo de destino real
+      window.location.href = `mailto:ojedaron@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+  </script>
+</body>
+</html>
